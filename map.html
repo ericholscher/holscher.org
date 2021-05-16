@@ -51,11 +51,16 @@ width: 10px;
 <script>
 
 	mapboxgl.accessToken = 'pk.eyJ1IjoiZXJpYy1iZW5kYmlrZXMiLCJhIjoiY2tua3VvOG43MGNuYzJ2bzUzYmNnemwxNyJ9.1Hm3SoeJ9jeWvWc2i_mj_Q';
+    var bounds = [
+    [-121.50260473386693, 43.91977998842478], // Southwest coordinates
+    [-121.2040375358341, 44.161788226804426] // Northeast coordinates
+    ];
     var map = new mapboxgl.Map({
         container: 'map', // container id
         style: 'mapbox://styles/eric-bendbikes/cknkuqq2e2dh017o5m62hc57n', // custom style url from https://studio.mapbox.com/
         center: ['-121.32225366707608','44.05843463121357'], // starting position
-        zoom: 13 // starting zoom
+        zoom: 13, // starting zoom
+        maxBounds: bounds // Sets bounds as max
     });
     map.addControl(new mapboxgl.NavigationControl());
     // Add geolocate control to the map.
@@ -86,6 +91,14 @@ width: 10px;
         .setLngLat(feature.geometry.coordinates)
         .setHTML('<h3>' + feature.properties.Name + '</h3><p>' + feature.properties.Description + '</p>')
         .addTo(map);
+    });
+
+    // Change the cursor to a pointer when the it enters a feature in the 'bend-points-of-interest' layer.
+    map.on('mouseenter', 'bend-points-of-interest', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+    map.on('mouseleave', 'bend-points-of-interest', function () {
+        map.getCanvas().style.cursor = '';
     });
 
 
