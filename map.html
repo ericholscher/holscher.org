@@ -45,6 +45,7 @@ width: 10px;
 <div><span style="background-color: blue"></span>Paths</div>
 <div><span style="background-color: green"></span>Neighborhood Greenways</div>
 <div><span style="background-color: red"></span>Not classified</div>
+<div><span style="background-color: yellow"></span>Dangerous Interactions</div>
 </div>
 
 <script>
@@ -67,6 +68,25 @@ width: 10px;
         })
     );
     map.dragRotate.disable();
+    map.on('click', function(e) {
+      console.log(e);
+      var features = map.queryRenderedFeatures(e.point, {
+        layers: ['key-intersections', "bend-points-of-interest"] // replace this with the name of the layer
+      });
+
+      if (!features.length) {
+        return;
+      }
+
+      var feature = features[0];
+
+      console.log(feature);
+
+      var popup = new mapboxgl.Popup({ offset: [0, -15] })
+        .setLngLat(feature.geometry.coordinates)
+        .setHTML('<h3>' + feature.properties.Name + '</h3><p>' + feature.properties.Description + '</p>')
+        .addTo(map);
+    });
 
 
 </script>
