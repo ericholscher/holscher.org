@@ -49,10 +49,28 @@ width: 10px;
 <div><span style="background-color: blue"></span>Paths</div>
 <div><span style="background-color: green"></span>Neighborhood Greenways</div>
 <div><span style="background-color: black"></span>Not classified, existing</div>
-<div><span style="background-color: pink"></span>Not classified, planned</div>
+<div><a onclick="togglePink()"><span style="background-color: pink"></span>Not classified, planned</a></div>
+<div><span style="background-color: #720404"></span>City Limits</div>
 </div>
 
 <script>
+
+    function togglePink() {
+        current = map.getLayoutProperty('Planned Line', 'visibility');
+        if (current == "visible") {
+            map.setLayoutProperty(
+            'Planned Line',
+            'visibility',
+            'none'
+            );
+        } else {
+        map.setLayoutProperty(
+        'Planned Line',
+        'visibility',
+        'visible'
+        );
+        }
+    }
 
 	mapboxgl.accessToken = 'pk.eyJ1IjoiZXJpYy1iZW5kYmlrZXMiLCJhIjoiY2tua3VvOG43MGNuYzJ2bzUzYmNnemwxNyJ9.1Hm3SoeJ9jeWvWc2i_mj_Q';
     var bounds = [
@@ -81,7 +99,7 @@ width: 10px;
     map.on('click', function(e) {
       console.log(e);
       var features = map.queryRenderedFeatures(e.point, {
-        layers: ['key-intersections', "bend-points-of-interest"] // replace this with the name of the layer
+        layers: ["High Stress Intersections", "Sponsors"] // replace this with the name of the layer
       });
 
       if (!features.length) {
@@ -94,15 +112,22 @@ width: 10px;
 
       var popup = new mapboxgl.Popup({ offset: [0, -15] })
         .setLngLat(feature.geometry.coordinates)
-        .setHTML('<h3>' + feature.properties.Name + '</h3><p>' + feature.properties.Description + '</p>')
+        .setHTML('<h3>' + feature.properties.Type + '</h3><p>' + feature.properties.Description + '</p>')
         .addTo(map);
     });
 
     // Change the cursor to a pointer when the it enters a feature in the 'bend-points-of-interest' layer.
-    map.on('mouseenter', 'bend-points-of-interest', function () {
+    map.on('mouseenter', 'Sponsors', function () {
         map.getCanvas().style.cursor = 'pointer';
     });
-    map.on('mouseleave', 'bend-points-of-interest', function () {
+    map.on('mouseleave', 'Sponsors', function () {
+        map.getCanvas().style.cursor = '';
+    });
+
+    map.on('mouseenter', "High Stress Intersections", function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+    map.on('mouseleave', "High Stress Intersections", function () {
         map.getCanvas().style.cursor = '';
     });
 
