@@ -1,0 +1,20 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>CSRF</title>
+  </head>
+  <body>
+  </body>
+
+  <script>
+fetch('https://docs.readthedocs.io/_/api/v2/embed/?project=docs&version=latest&path=badges.html&section=style',
+  {
+    credentials: 'include',
+  })
+  .then(response => response.json())
+  .then(data => console.log(data));
+  </script>
+</html>
