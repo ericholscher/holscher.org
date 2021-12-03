@@ -37,6 +37,16 @@ height: 10px;
 margin-right: 5px;
 width: 10px;
 }
+
+.legend div span.line {
+border-radius: 50%;
+display: inline-block;
+height: 1px;
+margin-right: 5px;
+width: 10px;
+margin-bottom: 3px;
+
+}
 </style>
 </head>
 
@@ -45,27 +55,26 @@ width: 10px;
 <div id="map"></div>
 <div id="state-legend" class="legend">
 <h4>Legend</h4>
-<div><span style="background-color: red"></span>High stress areas</div>
-<div><span style="background-color: blue"></span>Paths</div>
-<div><span style="background-color: green"></span>Neighborhood Greenways</div>
-<div><span style="background-color: black"></span>Not classified, existing</div>
-<div><a onclick="togglePink()"><span style="background-color: pink"></span>Not classified, planned</a></div>
-<div><span style="background-color: #720404"></span>City Limits</div>
+<div><span style="background-color: green"></span>All riders</div>
+<div><span style="background-color: yellow"></span>Riders with above-average skill</div>
+<div><a onclick="toggleRed()"><span style="background-color: red"></span>Experienced riders confident in traffic</a></div>
+<div><span style="background-color: blue"></span>Path - All riders</div>
+<div><span class="line" style="background-color: blue"></span>Unpaved Path - All riders</div>
 </div>
 
 <script>
 
-    function togglePink() {
-        current = map.getLayoutProperty('Planned Line', 'visibility');
+    function toggleRed() {
+        current = map.getLayoutProperty('Trails - Unpaved', 'visibility');
         if (current == "visible") {
             map.setLayoutProperty(
-            'Planned Line',
+            'Trails - Unpaved',
             'visibility',
             'none'
             );
         } else {
         map.setLayoutProperty(
-        'Planned Line',
+        'Trails - Unpaved',
         'visibility',
         'visible'
         );
