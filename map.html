@@ -33,6 +33,7 @@ width: 50px;
 transition: height 0.5s;
 text-align: center;
 overflow: hidden;
+cursor: pointer;
 }
 .grow:hover {
     height: 150px; /* This is the height on hover */
@@ -70,14 +71,31 @@ margin-bottom: 3px;
 <h4>Legend</h4>
 <div><span style="background-color: green"></span>All riders</div>
 <div><span style="background-color: yellow"></span>Riders with above-average skill</div>
-<div><a onclick="toggleRed()"><span style="background-color: red"></span>Experienced riders confident in traffic</a></div>
-<div><span style="background-color: blue"></span>Path - All riders</div>
-<div><span class="line" style="background-color: blue"></span>Unpaved Path - All riders</div>
+<div><span style="background-color: red"></span>Experienced riders confident in traffic</a></div>
+<div><a onclick="togglePaved()"><span style="background-color: blue"></span>Path - All riders</a></div>
+<div><a onclick="toggleUnpaved()"><span class="line" style="background-color: blue"></span>Unpaved Path - All riders</a></div>
 </div>
 
 <script>
 
-    function toggleRed() {
+    function togglePaved() {
+        current = map.getLayoutProperty('Trails - Paved', 'visibility');
+        if (current == "visible") {
+            map.setLayoutProperty(
+            'Trails - Paved',
+            'visibility',
+            'none'
+            );
+        } else {
+        map.setLayoutProperty(
+        'Trails - Paved',
+        'visibility',
+        'visible'
+        );
+        }
+    }
+
+    function toggleUnpaved() {
         current = map.getLayoutProperty('Trails - Unpaved', 'visibility');
         if (current == "visible") {
             map.setLayoutProperty(
