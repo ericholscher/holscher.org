@@ -14,6 +14,9 @@ body { margin: 0; padding: 0; }
 </style>
 
 <style>
+.grow {
+}
+
 .legend {
 background-color: #fff;
 border-radius: 3px;
@@ -24,6 +27,13 @@ padding: 10px;
 position: absolute;
 right: 10px;
 z-index: 1;
+height: 15px;
+transition: height 0.5s;
+text-align: center;
+overflow: hidden;
+}
+.grow:hover {
+    height: 145px; /* This is the height on hover */
 }
 
 .legend h4 {
@@ -53,7 +63,7 @@ margin-bottom: 3px;
 <body>
 
 <div id="map"></div>
-<div id="state-legend" class="legend">
+<div id="state-legend" class="grow legend">
 <h4>Legend</h4>
 <div><span style="background-color: green"></span>All riders</div>
 <div><span style="background-color: yellow"></span>Riders with above-average skill</div>
