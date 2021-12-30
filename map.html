@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html><head>
+<meta charset="utf-8"> <title>Bend Bikes Map Tech Demo</title> <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<!-- Copy to BB head -->
 
    <link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet">
    <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
@@ -7,14 +10,38 @@
    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
    <style>
-      /*
-      body { margin: 0; padding: 0; }
+     /* Embedded Style */
       #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-      */
-      #map {height:  90vh;}
+      .legend {
+      position: absolute;
+      }
       .mapboxgl-ctrl-geocoder--input { padding: 6px 35px !important; }
+
+      .grow:hover {
+      height: auto !important;
+      width: auto !important;
+      }
+     .legend {
+      width: 50px !important;
+      height: 20px !important;
+    }
+      body { margin: 0; padding: 0; }
    </style>
    <style>
+      /* Unembedded style */
+/*      #map {
+        height: 90vh;
+     }
+     .legend {
+      width: 50px;
+      height: 20px;
+    }
+*/ </style>
+ <style>
+      .mapboxgl-ctrl-geocoder--input {
+        padding: 6px 35px !important;
+        }
+
       .legend {
       background-color: #fff;
       border-radius: 3px;
@@ -24,18 +51,11 @@
       padding: 10px;
       right: 10px;
       z-index: 1;
-      width: 300px;
+      width: auto;
+      height: auto;
       overflow: hidden;
       }
-      /*
-      .grow:hover {
-      height: 250px;  This is the height on hover
-      width: 400px;
-      }
-      */
-      .toggle {
-      cursor: pointer;
-      }
+
       .legend h4 {
       margin: 0 0 10px;
       }
@@ -57,118 +77,62 @@
       .legend div span.yellow-black {
          background: linear-gradient(to right, #ede731 0%, #ede731 25%, #000000 25%, #000000 50%, #ede731 50%, #ede731 75%, #000 75%, #000 100%)
       }
-
-      .legend div span.line {
-      border-radius: 50%;
-      display: inline-block;
-      height: 1px;
-      margin-right: 5px;
-      width: 10px;
-      margin-bottom: 3px;
-      }
    </style>
 
-</head><body>
-    <div id="map"></div>
-<div id="state-legend" class="grow legend">
-   <h4>Legend</h4>
-   <div><span style="background-color: #4db04a;"></span>Paved Path - All riders</div>
-   <div><span class="dashed-green"></span>Unpaved Path - All riders</div>
-   <div><span style="background-color: #377eb9;"></span>All riders</div>
-   <div><span class="blue-black"></span>Riders with above-average skill</div>
-   <div><span style="background-color: #000000;"></span>Experienced riders confident in traffic</div>
-   <div><span class="yellow-black"></span>Most difficult sections</div>
-   <div><span style="background-color: #bba395;"></span>(Outline) Bike Lanes</div>
+<!-- End Copy to BB head -->
 
+</head><body>
+<!-- Copy to BB Content -->
+<div id="map"></div>
+<div id="state-legend" class="grow legend">
+    <h4>Legend</h4>
+    <div><span style="background-color: #4db04a;"></span>Paved Path - All riders</div>
+    <div><span class="dashed-green"></span>Unpaved Path - All riders</div>
+    <div><span style="background-color: #377eb9;"></span>All riders</div>
+    <div><span class="blue-black"></span>Riders with above-average skill</div>
+    <div><span style="background-color: #000000;"></span>Experienced riders confident in traffic</div>
+    <div><span class="yellow-black"></span>Most difficult sections</div>
+    <div><span style="background-color: #bba395;"></span>(Outline) Bike Lanes</div>
 </div>
 
 <script>
-mapboxgl.accessToken = "pk.eyJ1IjoiZXJpYy1iZW5kYmlrZXMiLCJhIjoiY2tua3VvOG43MGNuYzJ2bzUzYmNnemwxNyJ9.1Hm3SoeJ9jeWvWc2i_mj_Q";
-var bounds = [
-  [-121.50260473386693, 43.91977998842478], // Southwest coordinates
-  [-121.2040375358341, 44.161788226804426], // Northeast coordinates
-];
-var map = new mapboxgl.Map({
-  container: "map", // container id
-  style: "mapbox://styles/eric-bendbikes/ckxe04bkf7e0b15qu6qhc2e96", // custom style url from https://studio.mapbox.com/
-  center: ["-121.32225366707608", "44.05843463121357"], // starting position
-  zoom: 13, // starting zoom
-  maxBounds: bounds, // Sets bounds as max
-});
-// Add the control to the map.
-map.addControl(
-  new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken,
-    mapboxgl: mapboxgl,
-    bbox: [bounds[0][0], bounds[0][1], bounds[1][0], bounds[1][1]],
-  })
-);
+    mapboxgl.accessToken = "pk.eyJ1IjoiZXJpYy1iZW5kYmlrZXMiLCJhIjoiY2tua3VvOG43MGNuYzJ2bzUzYmNnemwxNyJ9.1Hm3SoeJ9jeWvWc2i_mj_Q";
+    var bounds = [
+        [-121.50260473386693, 43.91977998842478], // Southwest coordinates
+        [-121.2040375358341, 44.161788226804426], // Northeast coordinates
+    ];
+    var map = new mapboxgl.Map({
+        container: "map", // container id
+        style: "mapbox://styles/eric-bendbikes/ckxe04bkf7e0b15qu6qhc2e96", // custom style url from https://studio.mapbox.com/
+        center: ["-121.32225366707608", "44.05843463121357"], // starting position
+        zoom: 13, // starting zoom
+        maxBounds: bounds, // Sets bounds as max
+    });
+    // Add the control to the map.
+    map.addControl(
+        new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            mapboxgl: mapboxgl,
+            bbox: [bounds[0][0], bounds[0][1], bounds[1][0], bounds[1][1]],
+        })
+    );
 
-// Fullscreen & nav controls
-map.addControl(new mapboxgl.FullscreenControl());
-map.addControl(new mapboxgl.NavigationControl());
+    // Fullscreen & nav controls
+    map.addControl(new mapboxgl.FullscreenControl());
+    map.addControl(new mapboxgl.NavigationControl());
 
-// Add geolocate control to the map.
-map.addControl(
-  new mapboxgl.GeolocateControl({
-    positionOptions: {
-      enableHighAccuracy: true,
-    },
-    trackUserLocation: true,
-  })
-);
-map.dragRotate.disable();
-map.on("click", function (e) {
-  console.log(e);
-  var features = map.queryRenderedFeatures(e.point, {
-    layers: ["High Stress Intersections", "Sponsors"], // replace this with the name of the layer
-  });
-
-  if (!features.length) {
-    return;
-  }
-
-  var feature = features[0];
-
-  console.log(feature);
-
-  var popup = new mapboxgl.Popup({ offset: [0, -15] })
-    .setLngLat(feature.geometry.coordinates)
-    .setHTML(
-      "<h3>" +
-        feature.properties.Type +
-        "</h3><p>" +
-        feature.properties.Description +
-        "</p>"
-    )
-    .addTo(map);
-});
-
-// Change the cursor to a pointer when the it enters a feature in the 'bend-points-of-interest' layer.
-map.on("mouseenter", "Sponsors", function () {
-  map.getCanvas().style.cursor = "pointer";
-});
-map.on("mouseleave", "Sponsors", function () {
-  map.getCanvas().style.cursor = "";
-});
-
-map.on("mouseenter", "High Stress Intersections", function () {
-  map.getCanvas().style.cursor = "pointer";
-});
-map.on("mouseleave", "High Stress Intersections", function () {
-  map.getCanvas().style.cursor = "";
-});
-
-function toggle(layer) {
-  current = map.getLayoutProperty(layer, "visibility");
-  if (current == "visible") {
-    map.setLayoutProperty(layer, "visibility", "none");
-  } else {
-    map.setLayoutProperty(layer, "visibility", "visible");
-  }
-}
-
+    // Add geolocate control to the map.
+    map.addControl(
+        new mapboxgl.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: true,
+            },
+            trackUserLocation: true,
+        })
+    );
+    map.dragRotate.disable();
 </script>
 
+<!-- End Copy to BB Content -->
 
 </body></html>
