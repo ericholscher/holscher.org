@@ -13,8 +13,12 @@
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
 
 <style>
+/*
 body { margin: 0; padding: 0; }
 #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+*/
+#map {height:  1000px;}
+.mapboxgl-ctrl-geocoder--input { padding: 6px 35px !important; }
 </style>
 
 <style>
@@ -25,19 +29,21 @@ bottom: 30px;
 box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
 padding: 10px;
-position: absolute;
 right: 10px;
 z-index: 1;
-height: 15px;
-width: 50px;
-transition: height 0.5s;
-text-align: center;
+height: 175px;
+width: 300px;
 overflow: hidden;
-cursor: pointer;
 }
+/*
 .grow:hover {
-    height: 150px; /* This is the height on hover */
-    width: 200px;
+    height: 250px;  This is the height on hover
+    width: 400px;
+}
+*/
+
+.toggle {
+    cursor: pointer;
 }
 
 .legend h4 {
@@ -69,43 +75,28 @@ margin-bottom: 3px;
 <div id="map"></div>
 <div id="state-legend" class="grow legend">
 <h4>Legend</h4>
-<div><span style="background-color: green"></span>All riders</div>
-<div><span style="background-color: yellow"></span>Riders with above-average skill</div>
-<div><span style="background-color: red"></span>Experienced riders confident in traffic</a></div>
-<div><a onclick="togglePaved()"><span style="background-color: blue"></span>Path - All riders</a></div>
-<div><a onclick="toggleUnpaved()"><span class="line" style="background-color: blue"></span>Unpaved Path - All riders</a></div>
+<div><span style="background-color: #4db04a;"></span>All riders</div>
+<div><span style="background-color: #ffaa00;"></span>Riders with above-average skill</div>
+<div><span style="background-color: #ff0000;"></span>Experienced riders confident in traffic</a></div>
+<div><span style="background-color: #377eb9;"></span>(Solid) Paved Path - All riders</div>
+<div><span style="background-color: #377eb9;"></span>(Dashed) Unpaved Path - All riders</div>
+<div><span style="background-color: transparent; border: black solid 1px;"></span>No color - Not recommended</a></div>
+<div><span style="background-color: black;"></span>(Dashed) Bike Lanes</a></div>
+<div class="toggle"><a onclick="toggle('Greenways')"><span style="background-color: #4db04a;"></span>(Glow) Bicycle Greenway (Click to enable)</a></div>
 </div>
 
 <script>
-
-    function togglePaved() {
-        current = map.getLayoutProperty('Trails - Paved', 'visibility');
+    function toggle(layer) {
+        current = map.getLayoutProperty(layer, 'visibility');
         if (current == "visible") {
             map.setLayoutProperty(
-            'Trails - Paved',
+            layer,
             'visibility',
             'none'
             );
         } else {
         map.setLayoutProperty(
-        'Trails - Paved',
-        'visibility',
-        'visible'
-        );
-        }
-    }
-
-    function toggleUnpaved() {
-        current = map.getLayoutProperty('Trails - Unpaved', 'visibility');
-        if (current == "visible") {
-            map.setLayoutProperty(
-            'Trails - Unpaved',
-            'visibility',
-            'none'
-            );
-        } else {
-        map.setLayoutProperty(
-        'Trails - Unpaved',
+        layer,
         'visibility',
         'visible'
         );
@@ -119,7 +110,7 @@ margin-bottom: 3px;
     ];
     var map = new mapboxgl.Map({
         container: 'map', // container id
-        style: 'mapbox://styles/eric-bendbikes/ckvnv8hka0ihu15n1chb3ot5b', // custom style url from https://studio.mapbox.com/
+        style: 'mapbox://styles/eric-bendbikes/ckxe04bkf7e0b15qu6qhc2e96?fresh=true"', // custom style url from https://studio.mapbox.com/
         center: ['-121.32225366707608','44.05843463121357'], // starting position
         zoom: 13, // starting zoom
         maxBounds: bounds // Sets bounds as max
