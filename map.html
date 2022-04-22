@@ -29,14 +29,16 @@
    </style>
    <style>
       /* Unembedded style */
-/*      #map {
+/*
+      #map {
         height: 90vh;
      }
      .legend {
       width: 50px;
       height: 20px;
     }
-*/ </style>
+*/
+   </style>
  <style>
       .mapboxgl-ctrl-geocoder--input {
         padding: 6px 35px !important;
@@ -83,6 +85,7 @@
 
 </head><body>
 <!-- Copy to BB Content -->
+
 <div id="map"></div>
 <div id="state-legend" class="grow legend">
     <h4>Legend</h4>
@@ -93,6 +96,7 @@
     <div><span style="background-color: #000000;"></span>Experienced riders confident in traffic</div>
     <div><span class="yellow-black"></span>Most difficult sections</div>
     <div><span style="background-color: #bba395;"></span>(Outline) Bike Lanes</div>
+    <div><span style="background-color: #ede731;"></span>(Outline) Private Land</div>
 </div>
 
 <script>
@@ -105,7 +109,7 @@
         container: "map", // container id
         style: "mapbox://styles/eric-bendbikes/ckxe04bkf7e0b15qu6qhc2e96", // custom style url from https://studio.mapbox.com/
         center: ["-121.32225366707608", "44.05843463121357"], // starting position
-        zoom: 13, // starting zoom
+        zoom: 13.8, // starting zoom
         maxBounds: bounds, // Sets bounds as max
     });
     // Add the control to the map.
