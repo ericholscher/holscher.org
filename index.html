@@ -1,17 +1,4 @@
 <head>
-  <script src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
-  <script>
-  ethicalads.wait.then((placements) => {
-    if (placements === undefined || placements.length == 0) {
-      // No placement, show backup content
-      div = document.querySelector('[data-ea-publisher]')
-      div.innerHTML = '<p>Check out our first-party ad content.</p>'
-      console.debug('Loading backup content');
-    } else {
-      console.debug('EthicalAds are loaded');
-    }
-  });
-  </script>
 </head>
 <body>
 
@@ -31,14 +18,5 @@
         <a href="https://larryhunt.com/">Dirck</a>
       </li>
   </p>
-
-  <h4>
-      And now a word from our sponsors:
-  </h4>
-    <div style="width: 500px">
-      <div class="horizontal" data-ea-publisher="psf-test" data-ea-type="image"></div>
-    </div>
-
-
 
 </body>
